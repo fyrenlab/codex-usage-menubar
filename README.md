@@ -61,6 +61,11 @@ Widget/AIUsageDeskletWidget.swift     WidgetKit 桌面小组件
 build.sh                              无第三方依赖的构建与安装脚本
 ```
 
+## 小红书发布素材
+
+- [小红书介绍文案](XIAOHONGSHU.md)
+- [3:4 封面图](assets/xhs-cover-codex-usage-menubar.png)
+
 ## 许可证
 
 [MIT](LICENSE)
