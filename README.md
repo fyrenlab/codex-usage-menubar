@@ -12,7 +12,7 @@
 
 - macOS 菜单栏常驻显示 Codex 7 天剩余比例
 - 显示额度重置时间和最近同步时间
-- 可在 7 天与 5 小时窗口之间切换，缺失的窗口会自动隐藏
+- 兼容 Plus 与 Pro 返回的 5 小时、7 天窗口，缺失的窗口会自动隐藏
 - 读取本机 Codex 会话日志，汇总今日 Token 和最近 7 天数据
 - 提供小号、中号桌面小组件
 - 三套低干扰视觉主题
@@ -36,6 +36,14 @@ chmod +x build.sh
 构建脚本只使用 macOS 自带工具和 Swift 框架，不需要安装第三方依赖。它会进行本机临时签名，并把应用安装到 `~/Applications/AIUsageDesklet.app`。
 
 如果系统首次启动时拦截本机构建的应用，请在 Finder 中右键应用并选择“打开”。桌面小组件可以从 macOS 的“编辑小组件”面板中添加。
+
+运行兼容性检查：
+
+```bash
+./test.sh
+```
+
+额度窗口按接口返回的实际时长识别，不把 `primary` 固定当作 5 小时，也不把其他模型的独立额度混入主 Codex。OpenAI 当前说明 Plus 和 Pro 的本地消息使用 5 小时窗口，同时可能叠加每周限制；具体返回窗口仍以账户为准。[OpenAI Docs](https://learn.chatgpt.com/docs/pricing#what-are-the-usage-limits-for-my-plan)
 
 ## 数据与隐私
 

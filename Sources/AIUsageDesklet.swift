@@ -5,6 +5,7 @@ import Foundation
 import SwiftUI
 import WidgetKit
 
+#if !TESTING
 @main
 struct AIUsageDeskletApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
@@ -15,8 +16,9 @@ struct AIUsageDeskletApp: App {
         }
     }
 }
+#endif
 
-private enum MenuBarLimitDisplay: String {
+enum MenuBarLimitDisplay: String {
     case weekly
     case fiveHour
 }
@@ -368,9 +370,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func renderMenuBar() {
         let defaults = UserDefaults.standard
-        let mode = MenuBarLimitDisplay(
+        let preferredMode = MenuBarLimitDisplay(
             rawValue: defaults.string(forKey: "menuBarLimitDisplay") ?? ""
         ) ?? .weekly
+        let weeklyWindow = latestAppliedLimitStatus?.window(minutes: 10_080)
+        let fiveHourWindow = latestAppliedLimitStatus?.window(minutes: 300)
+        let availabilityIsKnown = latestAppliedLimitStatus != nil
+        let weeklyAvailable = !availabilityIsKnown || weeklyWindow != nil
+        let fiveHourAvailable = !availabilityIsKnown || fiveHourWindow != nil
+        let mode = resolvedMenuBarLimitDisplay(
+            preferred: preferredMode,
+            weeklyAvailable: weeklyAvailable,
+            fiveHourAvailable: fiveHourAvailable
+        )
+        if mode != preferredMode {
+            defaults.set(mode.rawValue, forKey: "menuBarLimitDisplay")
+        }
+
+        weeklyDisplayMenuItem?.isHidden = availabilityIsKnown && !weeklyAvailable
+        fiveHourDisplayMenuItem?.isHidden = availabilityIsKnown && !fiveHourAvailable
         weeklyDisplayMenuItem?.state = mode == .weekly ? .on : .off
         fiveHourDisplayMenuItem?.state = mode == .fiveHour ? .on : .off
 
@@ -381,14 +399,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let descriptiveLabel: String
         switch mode {
         case .weekly:
-            statusWindow = latestAppliedLimitStatus?.window(minutes: 10_080)
+            statusWindow = weeklyWindow
             let savedAvailable = defaults.object(forKey: "sevenDayAvailablePercent") as? Double
             savedUsedPercent = savedAvailable.flatMap { $0 >= 0 ? 100 - $0 : nil }
             shortLabel = "7d余"
             summaryLabel = "7d可用"
             descriptiveLabel = "7天余量"
         case .fiveHour:
-            statusWindow = latestAppliedLimitStatus?.window(minutes: 300)
+            statusWindow = fiveHourWindow
             let savedUsed = defaults.object(forKey: "fiveHourUsagePercent") as? Double
             savedUsedPercent = savedUsed.flatMap { $0 >= 0 ? $0 : nil }
             shortLabel = "5H余"
@@ -1577,6 +1595,21 @@ extension CodexFastLimitStatus {
             return CodexLimitWindow(usedPercent: secondaryUsedPercent, resetsAt: secondaryResetsAt)
         }
         return nil
+    }
+}
+
+func resolvedMenuBarLimitDisplay(
+    preferred: MenuBarLimitDisplay,
+    weeklyAvailable: Bool,
+    fiveHourAvailable: Bool
+) -> MenuBarLimitDisplay {
+    switch preferred {
+    case .weekly where !weeklyAvailable && fiveHourAvailable:
+        return .fiveHour
+    case .fiveHour where !fiveHourAvailable && weeklyAvailable:
+        return .weekly
+    default:
+        return preferred
     }
 }
 
