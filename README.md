@@ -1,4 +1,4 @@
-# AI 用量舱
+# Codex计费
 
 把 Codex 的 7 天剩余额度直接放进 macOS 菜单栏。抬眼就能看到，不用打开 Codex，也不用再点进账户页面。
 
@@ -6,7 +6,7 @@
 
 ## 为什么做它
 
-额度信息很重要，查看入口却离正在做的事有点远。一次查询往往要切窗口、打开页面、找到用量区域。AI 用量舱把这个高频数字放到屏幕顶部，查看额度只需要一眼。
+额度信息很重要，查看入口却离正在做的事有点远。一次查询往往要切窗口、打开页面、找到用量区域。Codex计费把这个高频数字放到屏幕顶部，查看额度只需要一眼。
 
 ## 功能
 
@@ -33,7 +33,7 @@ chmod +x build.sh
 ./build.sh --install
 ```
 
-构建脚本只使用 macOS 自带工具和 Swift 框架，不需要安装第三方依赖。它会进行本机临时签名，在 `dist/` 中只生成 `AIUsageDesklet.app.zip`，避免 macOS 把项目构建物误注册成第二个应用。使用 `--install` 时，正式应用会安装到 `~/Applications/AIUsageDesklet.app`。
+构建脚本只使用 macOS 自带工具和 Swift 框架，不需要安装第三方依赖。它会进行本机临时签名，在 `dist/` 中只生成 `Codex计费.app.zip`，避免 macOS 把项目构建物误注册成第二个应用。使用 `--install` 时，正式应用会安装到 `~/Applications/Codex计费.app`。
 
 如果系统首次启动时拦截本机构建的应用，请在 Finder 中右键应用并选择“打开”。桌面小组件可以从 macOS 的“编辑小组件”面板中添加。
 
@@ -70,4 +70,4 @@ build.sh                              无第三方依赖的构建与安装脚本
 
 [MIT](LICENSE)
 
-AI 用量舱是社区项目，与 OpenAI 没有隶属或官方授权关系。Codex 是 OpenAI 的商标。
+Codex计费是社区项目，与 OpenAI 没有隶属或官方授权关系。Codex 是 OpenAI 的商标。

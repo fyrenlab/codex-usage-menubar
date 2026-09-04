@@ -4,9 +4,11 @@ set -euo pipefail
 ROOT_DIR="${0:A:h}"
 BUILD_DIR="$ROOT_DIR/.build"
 DIST_DIR="$ROOT_DIR/dist"
-APP_NAME="AIUsageDesklet"
+APP_NAME="Codex计费"
+EXECUTABLE_NAME="AIUsageDesklet"
 DIST_ZIP="$DIST_DIR/$APP_NAME.app.zip"
-LEGACY_DIST_APP="$DIST_DIR/$APP_NAME.app"
+LEGACY_DIST_APP="$DIST_DIR/AIUsageDesklet.app"
+LEGACY_DIST_ZIP="$DIST_DIR/AIUsageDesklet.app.zip"
 WIDGET_NAME="AIUsageDeskletWidget"
 SDK_PATH="$(xcrun --sdk macosx --show-sdk-path)"
 ARCH="$(uname -m)"
@@ -39,7 +41,7 @@ xcrun swiftc \
   -framework SwiftUI \
   -framework WidgetKit \
   "$ROOT_DIR/Sources/AIUsageDesklet.swift" \
-  -o "$STAGED_APP/Contents/MacOS/$APP_NAME"
+  -o "$STAGED_APP/Contents/MacOS/$EXECUTABLE_NAME"
 
 cp "$ROOT_DIR/Info.plist" "$STAGED_APP/Contents/Info.plist"
 cp "$ROOT_DIR/Widget/Info.plist" "$WIDGET_BUNDLE/Contents/Info.plist"
@@ -55,13 +57,16 @@ codesign --verify --deep --strict "$STAGED_APP"
 
 mkdir -p "$DIST_DIR"
 rm -rf "$LEGACY_DIST_APP"
+rm -f "$LEGACY_DIST_ZIP"
 rm -f "$DIST_ZIP"
 ditto -c -k --norsrc --noextattr --keepParent "$STAGED_APP" "$DIST_ZIP"
 
 if [[ "${1:-}" == "--install" ]]; then
   INSTALL_DIR="$HOME/Applications"
   INSTALL_PATH="$INSTALL_DIR/$APP_NAME.app"
+  LEGACY_INSTALL_PATH="$INSTALL_DIR/AIUsageDesklet.app"
   mkdir -p "$INSTALL_DIR"
+  rm -rf "$LEGACY_INSTALL_PATH"
   rm -rf "$INSTALL_PATH"
   ditto --norsrc --noextattr "$STAGED_APP" "$INSTALL_PATH"
   codesign --verify --deep --strict "$INSTALL_PATH"

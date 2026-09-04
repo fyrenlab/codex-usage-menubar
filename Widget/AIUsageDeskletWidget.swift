@@ -34,7 +34,7 @@ struct AIUsageDeskletWidget: Widget {
                     WidgetChrome(palette: WidgetPalette.named(entry.snapshot?.theme ?? "graphite"))
                 }
         }
-        .configurationDisplayName("AI 用量舱")
+        .configurationDisplayName("Codex计费")
         .description("显示 Codex 真实来源同步后的 Token 用量。")
         .supportedFamilies([.systemSmall, .systemMedium])
     }
@@ -88,7 +88,7 @@ struct UsageWidgetEntryView: View {
     private var header: some View {
         HStack(spacing: 8) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("AI 用量舱")
+                Text("Codex计费")
                     .font(.system(size: 15, weight: .bold))
                 Text(isConnected ? "Codex 日志" : "Codex 未接入")
                     .font(.system(size: 10, weight: .medium))

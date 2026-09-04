@@ -109,7 +109,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             defer: false
         )
 
-        window.title = "AI 用量舱"
+        window.title = "Codex计费"
         window.titleVisibility = .visible
         window.titlebarAppearsTransparent = false
         window.isOpaque = true
@@ -588,7 +588,7 @@ struct UsageWidgetView: View {
                 Text("本机小组件 · 用量观测")
                     .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(.secondary)
-                Text("AI 用量舱")
+                Text("Codex计费")
                     .font(.system(size: 24, weight: .heavy))
                     .foregroundStyle(.primary)
             }
