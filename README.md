@@ -34,7 +34,7 @@ chmod +x build.sh
 ./build.sh --install
 ```
 
-构建脚本只使用 macOS 自带工具和 Swift 框架，不需要安装第三方依赖。它会进行本机临时签名，在 `dist/` 中只生成 `Codex计费.app.zip`，避免 macOS 把项目构建物误注册成第二个应用。使用 `--install` 时，正式应用会安装到 `~/Applications/Codex计费.app`。
+构建脚本只使用 macOS 自带工具和 Swift 框架，不需要安装第三方依赖。它会进行本机临时签名，在 `dist/` 中只生成 `Codex计费.app.zip`，避免 macOS 把项目构建物误注册成第二个应用。使用 `--install` 时，正式应用会安装到标准的 `/Applications/Codex计费.app`，方便从 Finder 的“应用程序”中找到。
 
 如果系统首次启动时拦截本机构建的应用，请在 Finder 中右键应用并选择“打开”。桌面小组件可以从 macOS 的“编辑小组件”面板中添加。
 
