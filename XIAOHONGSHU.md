@@ -23,8 +23,8 @@
 源码已经用 MIT 许可证公开。项目采用 Swift、SwiftUI、AppKit 和 WidgetKit，没有第三方依赖，仓库里附带了一键构建安装脚本。
 
 开源地址：
-https://github.com/renfeifan78141-arch/codex-usage-menubar
+https://github.com/fyrenlab/codex-usage-menubar
 
-GitHub 也可以直接搜索：`renfeifan78141-arch/codex-usage-menubar`
+GitHub 也可以直接搜索：`fyrenlab/codex-usage-menubar`
 
 #Mac效率工具 #Codex #开源软件 #独立开发 #AI工具 #macOS

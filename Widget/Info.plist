@@ -9,7 +9,7 @@
   <key>CFBundleExecutable</key>
   <string>AIUsageDeskletWidget</string>
   <key>CFBundleIdentifier</key>
-  <string>io.github.renfeifan78141.ai-usage-desklet.widget</string>
+  <string>io.github.fyrenlab.ai-usage-desklet.widget</string>
   <key>CFBundleInfoDictionaryVersion</key>
   <string>6.0</string>
   <key>CFBundleName</key>
@@ -17,13 +17,13 @@
   <key>CFBundlePackageType</key>
   <string>XPC!</string>
   <key>CFBundleShortVersionString</key>
-  <string>1.4</string>
+  <string>1.5</string>
   <key>CFBundleSupportedPlatforms</key>
   <array>
     <string>MacOSX</string>
   </array>
   <key>CFBundleVersion</key>
-  <string>5</string>
+  <string>6</string>
   <key>LSMinimumSystemVersion</key>
   <string>14.0</string>
   <key>NSExtension</key>

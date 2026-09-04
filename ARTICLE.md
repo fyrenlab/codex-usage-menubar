@@ -16,4 +16,4 @@
 
 它解决的事情很小，却每天都能省掉几次无意义的切换。对我来说，这类工具最合适的位置就是 Mac 屏幕上方。一直看得见，需要时点一下，其他时候安静待着。
 
-开源地址：<https://github.com/renfeifan78141-arch/codex-usage-menubar>
+开源地址：<https://github.com/fyrenlab/codex-usage-menubar>
