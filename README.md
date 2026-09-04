@@ -16,6 +16,7 @@
 - 读取本机 Codex 会话日志，汇总今日 Token 和最近 7 天数据
 - 提供小号、中号桌面小组件
 - 三套低干扰视觉主题
+- 现实主义铜珠沙漏 App 图标
 - 本机运行，不上传会话内容或用量快照
 
 ## 环境要求
@@ -59,6 +60,7 @@ chmod +x build.sh
 Sources/AIUsageDesklet.swift          菜单栏应用、详情页与数据读取
 Widget/AIUsageDeskletWidget.swift     WidgetKit 桌面小组件
 build.sh                              无第三方依赖的构建与安装脚本
+assets/AppIcon-master.png             铜珠沙漏图标母版
 ```
 
 ## 小红书发布素材

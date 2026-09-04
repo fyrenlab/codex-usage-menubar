@@ -16,9 +16,27 @@ TARGET="$ARCH-apple-macos14.0"
 STAGE_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/ai-usage-desklet.XXXXXX")"
 STAGED_APP="$STAGE_ROOT/$APP_NAME.app"
 WIDGET_BUNDLE="$STAGED_APP/Contents/PlugIns/$WIDGET_NAME.appex"
+ICON_SOURCE="$ROOT_DIR/assets/AppIcon-master.png"
+ICON_TIFF_DIR="$STAGE_ROOT/AppIcon.tiffset"
+ICON_TIFF="$STAGE_ROOT/AppIcon.tiff"
 trap 'rm -rf "$STAGE_ROOT"' EXIT
 
-mkdir -p "$BUILD_DIR/module-cache" "$STAGED_APP/Contents/MacOS" "$WIDGET_BUNDLE/Contents/MacOS"
+mkdir -p "$BUILD_DIR/module-cache" "$STAGED_APP/Contents/MacOS" "$STAGED_APP/Contents/Resources" "$WIDGET_BUNDLE/Contents/MacOS" "$ICON_TIFF_DIR"
+
+for icon_size in 16 32 48 128 256 512 1024; do
+  sips -z "$icon_size" "$icon_size" -s format tiff "$ICON_SOURCE" \
+    --out "$ICON_TIFF_DIR/icon-$icon_size.tiff" >/dev/null
+done
+tiffutil -cat \
+  "$ICON_TIFF_DIR/icon-16.tiff" \
+  "$ICON_TIFF_DIR/icon-32.tiff" \
+  "$ICON_TIFF_DIR/icon-48.tiff" \
+  "$ICON_TIFF_DIR/icon-128.tiff" \
+  "$ICON_TIFF_DIR/icon-256.tiff" \
+  "$ICON_TIFF_DIR/icon-512.tiff" \
+  "$ICON_TIFF_DIR/icon-1024.tiff" \
+  -out "$ICON_TIFF" >/dev/null 2>&1
+tiff2icns "$ICON_TIFF" "$STAGED_APP/Contents/Resources/AppIcon.icns"
 
 xcrun swiftc \
   -parse-as-library \
