@@ -1892,8 +1892,10 @@ struct CodexRPCUsageReader {
         )
     }
 
-    private static func codexExecutableURL() -> URL? {
+    static func codexExecutableURL() -> URL? {
         let candidates = [
+            "/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex",
+            "/Applications/Codex.app/Contents/Resources/codex-cli/bin/codex",
             "/Applications/ChatGPT.app/Contents/Resources/codex",
             "/Applications/Codex.app/Contents/Resources/codex",
             "/opt/homebrew/bin/codex",

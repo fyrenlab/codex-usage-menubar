@@ -43,4 +43,12 @@ precondition(
     ) == .weekly
 )
 
+let currentPackagedCodex = "/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex"
+if FileManager.default.isExecutableFile(atPath: currentPackagedCodex) {
+    precondition(
+        CodexRPCUsageReader.codexExecutableURL()?.path == currentPackagedCodex,
+        "Current ChatGPT-packaged Codex CLI should be discovered"
+    )
+}
+
 print("Plus / Pro rate-limit compatibility checks passed")
